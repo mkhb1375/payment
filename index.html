@@ -4,22 +4,28 @@
   <meta charset="UTF-8">
   <title>نتیجه پرداخت زرین‌پال</title>
   <style>
-    body { font-family: Tahoma, sans-serif; text-align: center; margin-top: 80px; }
-    h1 { font-size: 28px; }
-    p { font-size: 18px; }
+    body { font-family: Tahoma, sans-serif; text-align: center; margin-top: 80px; background-color: #f9f9f9; }
+    h1 { font-size: 28px; color: #333; }
+    p { font-size: 18px; color: #555; }
+    code { background: #eee; padding: 5px 10px; border-radius: 5px; display: inline-block; margin-top: 10px; }
   </style>
 </head>
 <body>
-  <h1 id="status">در حال بررسی پرداخت....</h1>
+  <h1 id="status">در حال بررسی پرداخت...</h1>
   <p id="instruction"></p>
 
   <script>
+    // گرفتن پارامترها از URL
     const urlParams = new URLSearchParams(window.location.search);
-    const status = urlParams.get("Status"); // OK یا NOK
+    const status = urlParams.get("Status");   // OK یا NOK
+    const authority = urlParams.get("Authority"); // کد پرداخت
+    const plan = urlParams.get("plan");       // شماره پلن
+
     if (status === "OK") {
       document.getElementById("status").innerHTML = "✅ پرداخت موفق بود";
       document.getElementById("instruction").innerHTML =
-        "لطفاً به ربات تلگرام برگردید و دستور <b>/verify</b> را وارد کنید.";
+        "برای فعال‌سازی حساب، این دستور را در ربات کپی کنید:<br><br>" +
+        "<code>/verify " + plan + " " + authority + "</code>";
     } else {
       document.getElementById("status").innerHTML = "❌ پرداخت ناموفق بود";
       document.getElementById("instruction").innerHTML =
@@ -28,4 +34,3 @@
   </script>
 </body>
 </html>
-
